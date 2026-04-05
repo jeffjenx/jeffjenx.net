@@ -1,29 +1,355 @@
+<!DOCTYPE html>
 <html lang="en">
-<title>jeffjenx.com</title>
-<h1>Hello, World!</h1>
-<style>
-a { display: table }
-@media (prefers-color-scheme: dark) { 
-  html, body {
-    background-color: #131313;
-    color: #EFEFEF;
-  }
-  :link { color: lightblue }
-  :visited { color: mediumpurple }
-  :active { color: indianred }
-}
-</style>
-<script>
-const add = function (href) {
-  if (!href.length) return
-  const link = document.createElement("a")
-  link.setAttribute("href", `https://${href}`)
-  link.textContent = href
-  document.body.appendChild(link)
-}
-const response = fetch('links.csv')
-  .then(res => res.text())
-  .then(links => links.split("\n").map(add))
-  .catch(err => console.log(err))
-</script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeff Jenx — Network</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="jeffjenx-tokens.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--jj-font-body);
+      font-size: var(--jj-text-base);
+      line-height: var(--jj-leading-normal);
+      color: var(--jj-fg);
+      background-color: var(--jj-bg);
+      transition: background-color var(--jj-duration-normal) var(--jj-ease),
+                  color var(--jj-duration-normal) var(--jj-ease);
+      padding: var(--jj-space-6) var(--jj-space-4);
+    }
+
+    .container {
+      max-width: var(--jj-width-wide);
+      margin: 0 auto;
+    }
+
+    /* --- HEADER --- */
+    .site-header {
+      margin-bottom: var(--jj-space-12);
+      padding-bottom: var(--jj-space-6);
+      border-bottom: var(--jj-border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--jj-space-4);
+      margin-bottom: var(--jj-space-4);
+    }
+
+    .brand__mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--jj-width-mark);
+      height: var(--jj-width-mark);
+      background-color: var(--jj-fg);
+      color: var(--jj-bg);
+      font-family: var(--jj-font-mono);
+      font-weight: var(--jj-weight-medium);
+      font-size: var(--jj-text-2xl);
+      letter-spacing: var(--jj-tracking-tight);
+      flex-shrink: 0;
+    }
+
+    .brand__title {
+      font-family: var(--jj-font-display);
+      font-size: var(--jj-text-3xl);
+      font-weight: var(--jj-weight-medium);
+      letter-spacing: var(--jj-tracking-tight);
+      line-height: var(--jj-leading-tight);
+    }
+
+    .brand__subtitle {
+      font-size: var(--jj-text-sm);
+      color: var(--jj-fg-muted);
+      letter-spacing: var(--jj-tracking-wide);
+      text-transform: uppercase;
+      margin-top: var(--jj-space-2);
+    }
+
+    /* --- INTRO SECTION --- */
+    .intro {
+      margin-bottom: var(--jj-space-10);
+      max-width: var(--jj-width-content);
+    }
+
+    .intro__text {
+      font-size: var(--jj-text-md);
+      color: var(--jj-fg-muted);
+      line-height: var(--jj-leading-loose);
+      margin-bottom: var(--jj-space-4);
+    }
+
+    .intro__text a {
+      color: var(--jj-accent-web);
+      text-decoration: none;
+      border-bottom: 1px solid var(--jj-accent-web);
+    }
+
+    .intro__text a:hover {
+      color: var(--jj-accent-web-dark);
+      border-bottom-color: var(--jj-accent-web-dark);
+    }
+
+    /* --- SECTION --- */
+    .section {
+      margin-bottom: var(--jj-space-10);
+    }
+
+    .section__header {
+      display: flex;
+      align-items: center;
+      gap: var(--jj-space-3);
+      margin-bottom: var(--jj-space-6);
+      padding-bottom: var(--jj-space-3);
+      border-bottom: var(--jj-border);
+    }
+
+    .section__icon {
+      width: var(--jj-space-6);
+      height: var(--jj-space-6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--jj-text-lg);
+    }
+
+    .section__title {
+      font-family: var(--jj-font-mono);
+      font-size: var(--jj-text-sm);
+      font-weight: var(--jj-weight-medium);
+      letter-spacing: var(--jj-tracking-wider);
+      text-transform: uppercase;
+      color: var(--jj-fg-muted);
+    }
+
+    /* --- LINK GRID --- */
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--jj-space-4);
+    }
+
+    .link-card {
+      display: block;
+      padding: var(--jj-space-4);
+      background-color: var(--jj-bg-raised);
+      border: var(--jj-border);
+      border-radius: var(--jj-radius-md);
+      text-decoration: none;
+      color: var(--jj-fg);
+      transition: transform var(--jj-duration-fast) var(--jj-ease),
+                  box-shadow var(--jj-duration-fast) var(--jj-ease),
+                  border-color var(--jj-duration-fast) var(--jj-ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background-color: var(--jj-accent);
+      opacity: 0;
+      transition: opacity var(--jj-duration-fast) var(--jj-ease);
+    }
+
+    .link-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-color: var(--jj-accent);
+    }
+
+    .link-card:hover::before {
+      opacity: 1;
+    }
+
+    .link-card__name {
+      font-family: var(--jj-font-mono);
+      font-size: var(--jj-text-base);
+      font-weight: var(--jj-weight-medium);
+      margin-bottom: var(--jj-space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--jj-space-2);
+    }
+
+    .link-card__domain {
+      font-size: var(--jj-text-xs);
+      color: var(--jj-fg-subtle);
+      letter-spacing: var(--jj-tracking-wide);
+    }
+
+    .link-card__desc {
+      font-size: var(--jj-text-sm);
+      color: var(--jj-fg-muted);
+      line-height: var(--jj-leading-snug);
+      margin-top: var(--jj-space-2);
+    }
+
+    /* --- FOOTER --- */
+    .site-footer {
+      margin-top: var(--jj-space-16);
+      padding-top: var(--jj-space-6);
+      border-top: var(--jj-border);
+      text-align: center;
+      font-size: var(--jj-text-xs);
+      color: var(--jj-fg-subtle);
+      letter-spacing: var(--jj-tracking-wide);
+    }
+
+    .site-footer a {
+      color: var(--jj-fg-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--jj-fg-subtle);
+    }
+
+    .site-footer a:hover {
+      color: var(--jj-fg);
+      border-bottom-color: var(--jj-fg);
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 640px) {
+      .brand__title {
+        font-size: var(--jj-text-2xl);
+      }
+
+      .link-grid {
+        grid-template-columns: 1fr;
+      }
+
+      body {
+        padding: var(--jj-space-4) var(--jj-space-3);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand__mark">JJ</div>
+        <div>
+          <h1 class="brand__title">jeffjenx</h1>
+          <p class="brand__subtitle">Network &middot; Connect</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- INTRO -->
+    <section class="intro">
+      <p class="intro__text">
+        Welcome to the Jeff Jenx network hub. Find us across social platforms, gaming ecosystems, 
+        and our creative storefronts. For development projects, visit 
+        <a href="https://github.com/jeffjenx">github.com/jeffjenx</a>.
+      </p>
+    </section>
+
+    <!-- GAMING -->
+    <section class="section" data-category="gb">
+      <div class="section__header">
+        <div class="section__icon">🎮</div>
+        <h2 class="section__title">Gaming</h2>
+      </div>
+      <div class="link-grid" id="gaming-links"></div>
+    </section>
+
+    <!-- SOCIAL -->
+    <section class="section" data-category="web">
+      <div class="section__header">
+        <div class="section__icon">💬</div>
+        <h2 class="section__title">Social</h2>
+      </div>
+      <div class="link-grid" id="social-links"></div>
+    </section>
+
+    <!-- DEVELOPMENT -->
+    <section class="section" data-category="nes">
+      <div class="section__header">
+        <div class="section__icon">💻</div>
+        <h2 class="section__title">Development</h2>
+      </div>
+      <div class="link-grid" id="dev-links"></div>
+    </section>
+
+    <!-- STOREFRONT -->
+    <section class="section" data-category="shop">
+      <div class="section__header">
+        <div class="section__icon">🛍️</div>
+        <h2 class="section__title">Storefront</h2>
+      </div>
+      <div class="link-grid" id="shop-links"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <p>&copy; 2026 Jeff Jenx &middot; <a href="https://jeffjenx.com">jeffjenx.com</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const linksData = [
+      { url: 'facebook.com/jeffjenx.me', category: 'social', name: 'Facebook', desc: 'Community updates, events, and discussions' },
+      { url: 'github.com/jeffjenx', category: 'dev', name: 'GitHub', desc: 'Open source projects, repositories, and code' },
+      { url: 'instagram.com/jeffjenx.jpg', category: 'social', name: 'Instagram', desc: 'Visual updates, behind-the-scenes content' },
+      { url: 'linkedin.com/in/jeffjenx', category: 'social', name: 'LinkedIn', desc: 'Professional network and career updates' },
+      { url: 'stackoverflow.com/users/1028949/jeffjenx', category: 'dev', name: 'Stack Overflow', desc: 'Technical Q&A and community contributions' },
+      { url: 'twitch.tv/jeffjenx', category: 'gaming', name: 'Twitch', desc: 'Live streaming, gameplay, and interactive sessions' },
+      { url: 'x.com/jeff_jenx', category: 'social', name: 'X (Twitter)', desc: 'Quick updates, thoughts, and engagement' },
+      { url: 'account.xbox.com/en-us/profile?gamertag=jeffjenx', category: 'gaming', name: 'Xbox Profile', desc: 'Gamer profile, achievements, and activity' },
+      { url: 'zazzle.com/store/jeffjenx', category: 'shop', name: 'Zazzle Store', desc: 'Custom merchandise, apparel, and accessories' },
+      { url: 'jeffjenx.redbubble.com', category: 'shop', name: 'Redbubble', desc: 'Independent designs, prints, and creative goods' }
+    ];
+
+    function createLinkCard(link) {
+      const card = document.createElement('a');
+      card.className = 'link-card';
+      card.href = `https://${link.url}`;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+
+      const domain = link.url.split('/')[0];
+
+      card.innerHTML = `
+        <div class="link-card__name">${link.name}</div>
+        <div class="link-card__domain">${domain}</div>
+        <div class="link-card__desc">${link.desc}</div>
+      `;
+
+      return card;
+    }
+
+    function populateLinks() {
+      const containers = {
+        gaming: document.getElementById('gaming-links'),
+        social: document.getElementById('social-links'),
+        dev: document.getElementById('dev-links'),
+        shop: document.getElementById('shop-links')
+      };
+
+      linksData.forEach(link => {
+        if (containers[link.category]) {
+          containers[link.category].appendChild(createLinkCard(link));
+        }
+      });
+    }
+
+    populateLinks();
+  </script>
+</body>
 </html>
