@@ -1,0 +1,29 @@
+<html lang="en">
+<title>jeffjenx.com</title>
+<h1>Hello, World!</h1>
+<style>
+a { display: table }
+@media (prefers-color-scheme: dark) { 
+  html, body {
+    background-color: #131313;
+    color: #EFEFEF;
+  }
+  :link { color: lightblue }
+  :visited { color: mediumpurple }
+  :active { color: indianred }
+}
+</style>
+<script>
+const add = function (href) {
+  if (!href.length) return
+  const link = document.createElement("a")
+  link.setAttribute("href", `https://${href}`)
+  link.textContent = href
+  document.body.appendChild(link)
+}
+const response = fetch('links.csv')
+  .then(res => res.text())
+  .then(links => links.split("\n").map(add))
+  .catch(err => console.log(err))
+</script>
+</html>
