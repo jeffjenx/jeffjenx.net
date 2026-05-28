@@ -245,7 +245,7 @@
       <div class="brand">
         <div class="brand__mark">JJ</div>
         <div>
-          <h1 class="brand__title">jeffjenx</h1>
+          <h1 class="brand__title">Jeff Jenx</h1>
           <p class="brand__subtitle">Network &middot; Connect</p>
         </div>
       </div>
@@ -258,6 +258,15 @@
         and our creative storefronts. For development projects, visit 
         <a href="https://github.com/jeffjenx">github.com/jeffjenx</a>.
       </p>
+    </section>
+
+    <!-- PERSONAL WEBSITES -->
+    <section class="section" data-category="personal">
+      <div class="section__header">
+        <div class="section__icon">🌐</div>
+        <h2 class="section__title">Personal Websites</h2>
+      </div>
+      <div class="link-grid" id="personal-links"></div>
     </section>
 
     <!-- GAMING -->
@@ -304,6 +313,9 @@
 
   <script>
     const linksData = [
+      { url: 'jeffjenx.com', category: 'personal', name: '[JJ] Commercial', desc: 'Professional portfolio and creative work' },
+      { url: 'jeffjenx.design', category: 'personal', name: '[JJ] Design', desc: 'Design system, brand strategy, and visual language' },
+      { url: 'jeffjenx.net', category: 'personal', name: '[JJ] Network', desc: 'Network hub, connected services, and links' },
       { url: 'facebook.com/jeffjenx.me', category: 'social', name: 'Facebook', desc: 'Community updates, events, and discussions' },
       { url: 'github.com/jeffjenx', category: 'dev', name: 'GitHub', desc: 'Open source projects, repositories, and code' },
       { url: 'instagram.com/jeffjenx.jpg', category: 'social', name: 'Instagram', desc: 'Visual updates, behind-the-scenes content' },
@@ -313,7 +325,8 @@
       { url: 'x.com/jeff_jenx', category: 'social', name: 'X (Twitter)', desc: 'Quick updates, thoughts, and engagement' },
       { url: 'account.xbox.com/en-us/profile?gamertag=jeffjenx', category: 'gaming', name: 'Xbox Profile', desc: 'Gamer profile, achievements, and activity' },
       { url: 'zazzle.com/store/jeffjenx', category: 'shop', name: 'Zazzle Store', desc: 'Custom merchandise, apparel, and accessories' },
-      { url: 'jeffjenx.redbubble.com', category: 'shop', name: 'Redbubble', desc: 'Independent designs, prints, and creative goods' }
+      { url: 'jeffjenx.redbubble.com', category: 'shop', name: 'Redbubble', desc: 'Independent designs, prints, and creative goods' },
+      { url: 'profile.playstation.com/jeffjenx', category: 'gaming', name: 'PlayStation Profile', desc: 'PSN profile, trophies, and activity' }
     ];
 
     function createLinkCard(link) {
@@ -336,6 +349,7 @@
 
     function populateLinks() {
       const containers = {
+        personal: document.getElementById('personal-links'),
         gaming: document.getElementById('gaming-links'),
         social: document.getElementById('social-links'),
         dev: document.getElementById('dev-links'),
