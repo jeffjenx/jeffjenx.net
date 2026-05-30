@@ -22,60 +22,111 @@
       line-height: var(--jj-leading-normal);
       color: var(--jj-fg);
       background-color: var(--jj-bg);
-      transition: background-color var(--jj-duration-normal) var(--jj-ease),
-                  color var(--jj-duration-normal) var(--jj-ease);
-      padding: var(--jj-space-6) var(--jj-space-4);
+      transition: background-color 160ms ease, color 160ms ease;
+      padding: 0;
     }
 
     .container {
       max-width: var(--jj-width-wide);
       margin: 0 auto;
+      padding: var(--jj-space-6) var(--jj-space-4);
     }
 
-    /* --- HEADER --- */
-    .site-header {
-      margin-bottom: var(--jj-space-12);
-      padding-bottom: var(--jj-space-6);
-      border-bottom: var(--jj-border);
-    }
-
-    .brand {
+    /* --- NAV --- */
+    .jj-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: color-mix(in srgb, var(--jj-bg) 92%, transparent);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--jj-border-color);
+      padding: 12px 24px;
       display: flex;
       align-items: center;
-      gap: var(--jj-space-4);
-      margin-bottom: var(--jj-space-4);
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .brand__mark {
+    .jj-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--jj-fg);
+    }
+
+    .jj-mark {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: var(--jj-width-mark);
-      height: var(--jj-width-mark);
-      background-color: var(--jj-fg);
+      width: 32px;
+      height: 32px;
+      background: var(--jj-fg);
       color: var(--jj-bg);
       font-family: var(--jj-font-mono);
-      font-weight: var(--jj-weight-medium);
-      font-size: var(--jj-text-2xl);
-      letter-spacing: var(--jj-tracking-tight);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: -0.02em;
       flex-shrink: 0;
     }
 
-    .brand__title {
-      font-family: var(--jj-font-display);
-      font-size: var(--jj-text-3xl);
-      font-weight: var(--jj-weight-medium);
-      letter-spacing: var(--jj-tracking-tight);
-      line-height: var(--jj-leading-tight);
+    .jj-lockup-text {
+      display: flex;
+      flex-direction: column;
     }
 
-    .brand__subtitle {
-      font-size: var(--jj-text-sm);
-      color: var(--jj-fg-muted);
-      letter-spacing: var(--jj-tracking-wide);
-      text-transform: uppercase;
-      margin-top: var(--jj-space-2);
+    .jj-lockup-name {
+      font-family: var(--jj-font-mono);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
     }
+
+    .jj-lockup-sub {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--jj-fg-subtle);
+    }
+
+    .jj-nav-links {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .jj-nav-link {
+      font-family: var(--jj-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: var(--jj-fg-muted);
+      text-decoration: none;
+    }
+
+    .jj-nav-link:hover { color: var(--jj-fg); opacity: 1; }
+
+    .jj-nav-link[aria-current="page"] {
+      color: var(--jj-fg);
+      font-weight: 500;
+    }
+
+    #theme-toggle {
+      font-family: var(--jj-font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--jj-border-color);
+      color: var(--jj-fg-muted);
+      padding: 5px 11px;
+      cursor: pointer;
+    }
+
+    #theme-toggle:hover { background: var(--jj-bg-sunken); }
 
     /* --- SECTION --- */
     .section {
@@ -177,55 +228,61 @@
     }
 
     /* --- FOOTER --- */
-    .site-footer {
-      margin-top: var(--jj-space-16);
-      padding-top: var(--jj-space-6);
-      border-top: var(--jj-border);
-      text-align: center;
-      font-size: var(--jj-text-xs);
+    .jj-footer {
+      border-top: 1px solid var(--jj-border-color);
+      padding: 28px 0;
       color: var(--jj-fg-subtle);
-      letter-spacing: var(--jj-tracking-wide);
+      font-family: var(--jj-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
     }
 
-    .site-footer a {
-      color: var(--jj-fg-muted);
+    .jj-footer a {
+      color: var(--jj-fg-subtle);
       text-decoration: none;
-      border-bottom: 1px solid var(--jj-fg-subtle);
+      border-bottom: 1px solid var(--jj-border-color);
     }
 
-    .site-footer a:hover {
+    .jj-footer a:hover {
       color: var(--jj-fg);
       border-bottom-color: var(--jj-fg);
     }
 
+    .jj-footer-row + .jj-footer-row { margin-top: 8px; }
+
     /* --- RESPONSIVE --- */
     @media (max-width: 640px) {
-      .brand__title {
-        font-size: var(--jj-text-2xl);
-      }
-
       .link-grid {
         grid-template-columns: 1fr;
       }
 
-      body {
+      .container {
         padding: var(--jj-space-4) var(--jj-space-3);
+      }
+
+      .jj-nav-links {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
+<nav class="jj-nav" aria-label="Primary navigation">
+  <a href="index.htm" class="jj-lockup" aria-label="Jeff Jenx Network home">
+    <span class="jj-mark" aria-hidden="true">JJ</span>
+    <span class="jj-lockup-text">
+      <span class="jj-lockup-name">Jeff Jenx</span>
+      <span class="jj-lockup-sub">Network</span>
+    </span>
+  </a>
+  <ul class="jj-nav-links" role="list">
+    <li><a href="https://jeffjenx.com"    class="jj-nav-link">Shop</a></li>
+    <li><a href="https://jeffjenx.design" class="jj-nav-link">Design</a></li>
+    <li><a href="https://jeffjenx.net"    class="jj-nav-link" aria-current="page">Network</a></li>
+  </ul>
+  <button id="theme-toggle" type="button" aria-label="Toggle dark mode">Dark</button>
+</nav>
   <div class="container">
-    <!-- HEADER -->
-    <header class="site-header">
-      <div class="brand">
-        <div class="brand__mark">JJ</div>
-        <div>
-          <h1 class="brand__title">Jeff Jenx</h1>
-          <p class="brand__subtitle">Network &middot; Connect</p>
-        </div>
-      </div>
-    </header>
 
     <!-- PERSONAL WEBSITES -->
     <section class="section" data-category="personal">
@@ -273,8 +330,14 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="site-footer">
-      <p>&copy; 2026 Jeff Jenx &middot; <a href="https://jeffjenx.com">jeffjenx.com</a></p>
+    <footer class="jj-footer" role="contentinfo">
+      <div class="jj-footer-row">
+        [JJ] Jeff Jenx &nbsp;&middot;&nbsp;
+        <a href="https://jeffjenx.com">Shop</a> &nbsp;&middot;&nbsp;
+        <a href="https://jeffjenx.design">Design</a> &nbsp;&middot;&nbsp;
+        <a href="https://jeffjenx.net" aria-current="page">Network</a>
+      </div>
+      <div class="jj-footer-row">No tracking. No ads. No data collected.</div>
     </footer>
   </div>
 
@@ -332,5 +395,30 @@
 
     populateLinks();
   </script>
+<script>
+(() => {
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  const sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const saved = (() => { try { return localStorage.getItem('jj-theme'); } catch(e) { return null; } })();
+  const override = (() => { try { return localStorage.getItem('jj-theme-override') === 'true'; } catch(e) { return false; } })();
+  let theme = (override && saved) ? saved : (sysDark.matches ? 'dark' : 'light');
+  root.setAttribute('data-theme', theme);
+  toggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
+  toggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('jj-theme', next); localStorage.setItem('jj-theme-override', 'true'); } catch(e) {}
+    toggle.textContent = next === 'dark' ? 'Light' : 'Dark';
+  });
+  sysDark.addEventListener('change', (e) => {
+    if (!override) {
+      const t = e.matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', t);
+      toggle.textContent = t === 'dark' ? 'Light' : 'Dark';
+    }
+  });
+})();
+</script>
 </body>
 </html>
