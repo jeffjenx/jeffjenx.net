@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 Sitemap: https://jeffjenx.net/sitemap.xml
+Humans: https://jeffjenx.net/humans.txt
