@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+<script>/* anti-FOUC */(function(){var r=document.documentElement,s,ov;try{s=localStorage.getItem('jj-theme');ov=localStorage.getItem('jj-theme-override')==='true';}catch(e){}var sys=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;r.setAttribute('data-theme',(ov&&s)?s:(sys?'dark':'light'));})();</script>
   <title>Jeff Jenx · Network</title>
   <meta name="description" content="Jeff Jenx network hub — all profiles, platforms, and connected services. GitHub, Xbox, PlayStation, Twitch, social media, development, and storefronts.">
   <meta name="robots" content="index, follow">
@@ -210,8 +213,6 @@
     }
 
     .link-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
       border-color: var(--jj-accent, var(--jj-fg));
     }
 
@@ -286,7 +287,7 @@
 <body>
 <nav class="jj-nav" aria-label="Primary navigation">
   <a href="index.htm" class="jj-lockup" aria-label="Jeff Jenx Network home">
-    <span class="jj-mark" aria-hidden="true">JJ</span>
+    <span class="jj-mark" aria-hidden="true">[JJ]</span>
     <span class="jj-lockup-text">
       <span class="jj-lockup-name">Jeff Jenx</span>
       <span class="jj-lockup-sub">Network</span>
